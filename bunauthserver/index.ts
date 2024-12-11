@@ -3,6 +3,7 @@ import { PasswordAdapter } from "@openauthjs/openauth/adapter/password";
 import { MemoryStorage } from "@openauthjs/openauth/storage/memory";
 import { PasswordUI } from "@openauthjs/openauth/ui/password";
 import { subjects } from "./subjects";
+import crypto from "crypto"
 
 const authServer = authorizer({
   providers: {
@@ -16,10 +17,8 @@ const authServer = authorizer({
   },
   subjects,
   async success(ctx, value) {
-    console.log(value.provider);
     if (value.provider === "password") {
-      console.log(JSON.stringify(ctx.subject("user", { userId: crypto.randomUUID(), role: "user" })));
-      return ctx.subject("user", { userId: crypto.randomUUID(), role: "user" })
+      return ctx.subject("user", { userId: crypto.randomUUID(), role: "user", email: value.email })
     }
     throw new Error("Invalid provider")
   },

@@ -4,6 +4,7 @@ import { object, string } from "valibot"
 export const subjects = createSubjects({
   user: object({
     userId: string(),
+    email: string(),
     role: string()
   })
 })
