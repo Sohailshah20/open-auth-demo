@@ -1,14 +1,12 @@
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
+import Image from "next/image";
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  const userName = cookieStore.get('userName')?.value || 'User';
-
+  const cookie = await cookies();
+  const name = cookie.get("user_email")?.value || "User";
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold text-center">
-        Hello {userName}
-      </h1>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <h1 style={{ fontWeight: "bold" }}>hello {name}</h1>
     </div>
   );
 }
